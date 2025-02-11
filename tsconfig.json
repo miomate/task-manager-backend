@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2019", // Updated from "es2016" to "ES2019" for modern JavaScript features
+    "module": "commonjs", // Use CommonJS modules
+    "moduleResolution": "node", // Use Node-style module resolution
+    "rootDir": "src", // Specify the root folder for your source files
+    "outDir": "dist", // Specify the output directory for compiled files
+
+    /* Interop Constraints */
+    "esModuleInterop": true, // Enables default imports for CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Ensure that file casing is correct in imports
+
+    /* Type Checking */
+    "strict": true, // Enable all strict type-checking options
+
+    /* Emit */
+    "skipLibCheck": true // Skip type checking of declaration files for faster builds
+  },
+  "include": ["src"] // Include all files in the src folder
+}
