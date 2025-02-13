@@ -15,15 +15,8 @@ module.exports = (app) => {
   // Set up CORS middleware with a whitelist approach
   app.use(
     cors({
-      origin: function (origin, callback) {
-        // Allow requests with no origin (like curl or mobile apps)
-        if (!origin) return callback(null, true);
-        if (origin === FRONTEND_URL) {
-          callback(null, true);
-        } else {
-          callback(new Error(`Not allowed by CORS: ${origin}`));
-        }
-      },
+      origin: FRONTEND_URL, // Allow only the frontend URL
+      credentials: true, // Allow cookies and credentials
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
     })
@@ -37,7 +30,47 @@ module.exports = (app) => {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
 };
+//----------------------------
+// const express = require("express");
+// const logger = require("morgan");
+// const cookieParser = require("cookie-parser");
+// const cors = require("cors");
 
+// // Remove trailing slashes from ORIGIN (if any) to match the browser's Origin header exactly.
+// const FRONTEND_URL = process.env.ORIGIN
+//   ? process.env.ORIGIN.replace(/\/+$/, "")
+//   : "http://localhost:5173";
+
+// module.exports = (app) => {
+//   // Trust the proxy (useful for platforms like Vercel)
+//   app.set("trust proxy", 1);
+
+//   // Set up CORS middleware with a whitelist approach
+//   app.use(
+//     cors({
+//       origin: function (origin, callback) {
+//         // Allow requests with no origin (like curl or mobile apps)
+//         if (!origin) return callback(null, true);
+//         if (origin === FRONTEND_URL) {
+//           callback(null, true);
+//         } else {
+//           callback(new Error(`Not allowed by CORS: ${origin}`));
+//         }
+//       },
+//       methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//       allowedHeaders: ["Content-Type", "Authorization"],
+//     })
+//   );
+
+//   // Use logger to log requests (good for debugging)
+//   app.use(logger("dev"));
+
+//   // Parse incoming JSON requests
+//   app.use(express.json());
+//   app.use(express.urlencoded({ extended: false }));
+//   app.use(cookieParser());
+// };
+//-----------------------------------------------------------
 // cors issues with the frontend
 // // We reuse this import in order to have access to the `body` property in requests
 // const express = require('express')
