@@ -1,13 +1,9 @@
-const prisma = require("../db");
-
 const router = require("express").Router();
 
-router.get("/", (req, res) => {
-  prisma.book.findMany()
-  res.json("All good in here");
-});
+const categoriesRoutes = require("./category.routes");
+router.use("/categories", categoriesRoutes);
 
-const booksRoutes = require("./books.routes");
-router.use("/books", booksRoutes);
+const tasksRoutes = require("./tasks.routes");
+router.use("/tasks", tasksRoutes);
 
 module.exports = router;
