@@ -3,29 +3,24 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-// Remove trailing slashes from ORIGIN (if any) to match the browser's Origin header exactly.
-const FRONTEND_URL = process.env.ORIGIN
-  ? process.env.ORIGIN.replace(/\/+$/, "")
-  : "http://localhost:5173";
+
+const FRONTEND_URL = process.env.ORIGIN || "http://localhost:5173";
 
 module.exports = (app) => {
-  // Trust the proxy (useful for platforms like Vercel)
+
   app.set("trust proxy", 1);
 
-  // Set up CORS middleware with a whitelist approach
   app.use(
     cors({
-      origin: FRONTEND_URL, // Allow only the frontend URL
-      credentials: true, // Allow cookies and credentials
-      methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-      allowedHeaders: ["Content-Type", "Authorization"],
+      origin: FRONTEND_URL,
+
     })
   );
 
-  // Use logger to log requests (good for debugging)
+
   app.use(logger("dev"));
 
-  // Parse incoming JSON requests
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
